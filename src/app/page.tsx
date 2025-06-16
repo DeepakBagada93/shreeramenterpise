@@ -1,12 +1,32 @@
+
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import ProductCard from '@/components/product/ProductCard';
 import { getFeaturedProducts } from '@/lib/mock-data';
-import { Award, ShoppingBag } from 'lucide-react';
+import { Award, ShoppingBag, Shirt, Sparkles } from 'lucide-react'; // Added Shirt and Sparkles
 import Image from 'next/image';
 
 export default function HomePage() {
   const featuredProducts = getFeaturedProducts();
+
+  const categoryIcons: { [key: string]: React.ReactNode } = {
+    'T-Shirts': <Shirt className="w-12 h-12 text-white" />,
+    'Pants': (
+      <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-12 h-12 text-white">
+        <path d="M9 2v10.5A2.5 2.5 0 0 0 11.5 15h1A2.5 2.5 0 0 0 15 12.5V2"/>
+        <path d="M9 2H7a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h2"/>
+        <path d="M15 2h2a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2h-2"/>
+      </svg>
+    ),
+    'Jackets': (
+      <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-12 h-12 text-white">
+        <path d="M20.38 3.46 16 2a4 4 0 0 0-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.47a1 1 0 0 0 .99.84H6v7c0 2.21 1.79 4 4 4h4c2.21 0 4-1.79 4-4v-7h2.15a1 1 0 0 0 .99-.84l.58-3.47a2 2 0 0 0-1.34-2.23z"/>
+        <path d="M6 9h12"/>
+        <path d="M12 9V2"/>
+      </svg>
+    ),
+    'Accessories': <Sparkles className="w-12 h-12 text-white" />,
+  };
 
   return (
     <div className="space-y-16">
@@ -73,8 +93,8 @@ export default function HomePage() {
       <section>
         <h2 className="text-3xl font-bold text-center mb-10 font-headline">Shop by Category</h2>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          {['T-Shirts', 'Pants', 'Jackets', 'Accessories'].map(category => (
-            <Link key={category} href={`/products?category=${category.toLowerCase()}`} className="group">
+          {Object.keys(categoryIcons).map(category => (
+            <Link key={category} href={`/products?category=${category.toLowerCase().replace(' ', '-')}`} className="group">
               <div className="relative aspect-square rounded-lg overflow-hidden shadow-sm hover:shadow-lg transition-shadow">
                 <Image 
                   src={`https://placehold.co/400x400.png`} 
@@ -85,7 +105,7 @@ export default function HomePage() {
                   data-ai-hint={`${category.toLowerCase()} clothing`}
                 />
                 <div className="absolute inset-0 bg-black/30 group-hover:bg-black/10 transition-colors flex items-center justify-center">
-                  <h3 className="text-xl font-semibold text-white">{category}</h3>
+                  {categoryIcons[category] || <h3 className="text-xl font-semibold text-white">{category}</h3>}
                 </div>
               </div>
             </Link>
