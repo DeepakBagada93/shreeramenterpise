@@ -18,12 +18,12 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         <Link href={`/products/${product.slug}`} aria-label={`View details for ${product.name}`}>
           <div className="aspect-[3/4] relative overflow-hidden">
             <Image
-              src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHx0c2hpcnR8ZW58MHx8fHwxNzUwMDk2MzQ2fDA&ixlib=rb-4.1.0&q=80&w=1080"
+              src="https://images.unsplash.com/photo-1621072156002-e2fccdc0b176?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxzaGlydHxlbnwwfHx8fDE3NTAwOTY0MzR8MA&ixlib=rb-4.1.0&q=80&w=1080"
               alt={product.name}
               layout="fill"
               objectFit="cover"
               className="hover:scale-105 transition-transform duration-300"
-              data-ai-hint="tshirt"
+              data-ai-hint="shirt"
             />
           </div>
         </Link>
