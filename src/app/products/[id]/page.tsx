@@ -37,10 +37,10 @@ export default async function ProductDetailPage({ params }: { params: { id: stri
         {/* Image Gallery */}
         <div>
           <div className="aspect-square relative rounded-lg overflow-hidden shadow-lg mb-4">
-            <Image 
-              src={product.images[0]} 
-              alt={product.name} 
-              layout="fill" 
+            <Image
+              src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxzaGlydHxlbnwwfHx8fDE3NTAwOTY0MzR8MA&ixlib=rb-4.1.0&q=80&w=1080"
+              alt={product.name}
+              layout="fill"
               objectFit="cover"
               priority
               data-ai-hint="product detail"
@@ -75,7 +75,7 @@ export default async function ProductDetailPage({ params }: { params: { id: stri
             </CardHeader>
             <CardContent>
               <CardDescription className="text-base leading-relaxed">{product.description}</CardDescription>
-              
+
               <Separator className="my-6" />
 
               {/* Size Selection */}
@@ -100,7 +100,7 @@ export default async function ProductDetailPage({ params }: { params: { id: stri
                   ))}
                 </div>
               </div>
-              
+
               <div className="flex gap-3">
                 <Button size="lg" className="flex-1 shadow hover:shadow-md">
                   <ShoppingCart className="mr-2 h-5 w-5" /> Add to Cart
