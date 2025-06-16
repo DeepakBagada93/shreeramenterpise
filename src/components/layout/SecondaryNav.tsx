@@ -82,7 +82,7 @@ const SecondaryNav = () => {
                 <DropdownMenuTrigger asChild>
                   <button
                     className={cn(
-                      "px-3 py-2 text-sm font-medium rounded-md hover:bg-muted hover:text-primary transition-colors flex items-center gap-1",
+                      "px-2 sm:px-3 py-2 text-sm font-medium rounded-md hover:bg-muted hover:text-primary transition-colors flex items-center gap-1 whitespace-nowrap",
                       isActive ? "text-primary bg-muted" : "text-foreground/70"
                     )}
                   >
@@ -96,7 +96,7 @@ const SecondaryNav = () => {
                       <Link
                         href={subItem.href}
                         className={cn(
-                          "px-3 py-2 text-sm font-medium hover:bg-muted hover:text-primary transition-colors w-full text-left block",
+                          "px-3 py-2 text-sm font-medium hover:bg-muted hover:text-primary transition-colors w-full text-left block whitespace-nowrap",
                            currentPath === subItem.href ? "text-primary bg-muted" : "text-foreground/80"
                         )}
                       >
@@ -114,7 +114,7 @@ const SecondaryNav = () => {
               key={link.label}
               href={link.href || '#'}
               className={cn(
-                "px-3 py-2 text-sm font-medium rounded-md hover:bg-muted hover:text-primary transition-colors",
+                "px-2 sm:px-3 py-2 text-sm font-medium rounded-md hover:bg-muted hover:text-primary transition-colors whitespace-nowrap",
                 isActive ? "text-primary bg-muted" : "text-foreground/70"
               )}
             >
