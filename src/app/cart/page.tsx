@@ -1,3 +1,4 @@
+
 'use client'; // For potential client-side cart management
 
 import { Button } from '@/components/ui/button';
@@ -26,7 +27,7 @@ export default function CartPage() {
     const newSubtotal = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
     setSubtotal(newSubtotal);
     // Assuming shipping is fixed or calculated elsewhere
-    const shippingCost = cartItems.length > 0 ? 5.99 : 0; 
+    const shippingCost = cartItems.length > 0 ? 150 : 0; // Example shipping cost in INR
     setTotal(newSubtotal + shippingCost);
   }, [cartItems]);
 
@@ -72,7 +73,7 @@ export default function CartPage() {
                 <p className="text-sm text-muted-foreground">
                   Size: {item.selectedSize} / Color: {item.selectedColor}
                 </p>
-                <p className="text-md font-semibold text-primary mt-1">${item.price.toFixed(2)}</p>
+                <p className="text-md font-semibold text-primary mt-1">₹{item.price.toFixed(2)}</p>
               </div>
               <div className="flex items-center gap-2 mt-2 md:mt-0">
                 <Button variant="outline" size="icon" className="h-8 w-8" onClick={() => updateQuantity(item.id, item.quantity - 1)}>
@@ -90,7 +91,7 @@ export default function CartPage() {
                 </Button>
               </div>
               <div className="text-lg font-semibold w-20 text-right hidden md:block">
-                ${(item.price * item.quantity).toFixed(2)}
+                ₹{(item.price * item.quantity).toFixed(2)}
               </div>
               <Button variant="ghost" size="icon" className="text-muted-foreground hover:text-destructive" onClick={() => removeItem(item.id)}>
                 <Trash2 className="h-5 w-5" />
@@ -108,16 +109,16 @@ export default function CartPage() {
             <CardContent className="space-y-4">
               <div className="flex justify-between">
                 <span className="text-muted-foreground">Subtotal</span>
-                <span>${subtotal.toFixed(2)}</span>
+                <span>₹{subtotal.toFixed(2)}</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-muted-foreground">Shipping</span>
-                <span>${cartItems.length > 0 ? '5.99' : '0.00'}</span>
+                <span>₹{cartItems.length > 0 ? '150.00' : '0.00'}</span>
               </div>
               <Separator />
               <div className="flex justify-between text-lg font-semibold">
                 <span>Total</span>
-                <span>${total.toFixed(2)}</span>
+                <span>₹{total.toFixed(2)}</span>
               </div>
             </CardContent>
             <CardFooter className="flex-col gap-3">

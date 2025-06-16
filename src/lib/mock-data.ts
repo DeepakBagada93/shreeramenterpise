@@ -1,3 +1,4 @@
+
 import type { Product, UserProfile, Review, ProductCategory, ProductSize } from './types';
 
 const COMMON_SIZES: ProductSize[] = ['S', 'M', 'L', 'XL'];
@@ -9,13 +10,14 @@ const MOCK_REVIEWS: Review[] = [
   { id: 'review3', author: 'Chris D.', rating: 5, comment: 'Love the color and material.', date: '2023-11-01' },
 ];
 
+// Prices updated to reflect INR values (example conversion, adjust as needed)
 export const PRODUCTS: Product[] = [
   {
     id: 'prod_001',
     slug: 'classic-crew-neck-tee',
     name: 'Classic Crew Neck Tee',
     description: 'A timeless essential, this crew neck t-shirt is crafted from soft, breathable cotton for all-day comfort. Perfect for layering or wearing on its own.',
-    price: 29.99,
+    price: 2499.00, // Approx 29.99 USD
     images: ['https://placehold.co/600x800.png', 'https://placehold.co/600x800.png', 'https://placehold.co/600x800.png'],
     category: 'T-Shirts',
     sizes: COMMON_SIZES,
@@ -32,7 +34,7 @@ export const PRODUCTS: Product[] = [
     slug: 'slim-fit-chino-pants',
     name: 'Slim Fit Chino Pants',
     description: 'Versatile and stylish, these slim-fit chinos are made from a comfortable stretch-cotton blend. Ideal for both casual and smart-casual occasions.',
-    price: 69.99,
+    price: 5799.00, // Approx 69.99 USD
     images: ['https://placehold.co/600x800.png', 'https://placehold.co/600x800.png'],
     category: 'Pants',
     sizes: ['S', 'M', 'L'],
@@ -49,7 +51,7 @@ export const PRODUCTS: Product[] = [
     slug: 'oxford-button-down-shirt',
     name: 'Oxford Button-Down Shirt',
     description: 'A wardrobe staple, this Oxford shirt features a classic button-down collar and a crisp, clean look. Made from durable and soft Oxford cotton.',
-    price: 59.99,
+    price: 4999.00, // Approx 59.99 USD
     images: ['https://placehold.co/600x800.png'],
     category: 'Shirts',
     sizes: COMMON_SIZES,
@@ -65,7 +67,7 @@ export const PRODUCTS: Product[] = [
     slug: 'lightweight-bomber-jacket',
     name: 'Lightweight Bomber Jacket',
     description: 'Transition through seasons with ease in this lightweight bomber jacket. Features a sleek design with ribbed cuffs and hem for a modern fit.',
-    price: 89.99,
+    price: 7499.00, // Approx 89.99 USD
     images: ['https://placehold.co/600x800.png', 'https://placehold.co/600x800.png'],
     category: 'Jackets',
     sizes: ['M', 'L', 'XL'],
@@ -81,7 +83,7 @@ export const PRODUCTS: Product[] = [
     slug: 'premium-leather-belt',
     name: 'Premium Leather Belt',
     description: 'Complete your look with this premium leather belt, featuring a classic metal buckle and durable construction. A timeless accessory for any wardrobe.',
-    price: 45.00,
+    price: 3750.00, // Approx 45.00 USD
     images: ['https://placehold.co/400x400.png'],
     category: 'Accessories',
     sizes: ['S', 'M', 'L'], // Belt sizes
@@ -97,7 +99,7 @@ export const PRODUCTS: Product[] = [
     slug: 'modern-fit-denim-jeans',
     name: 'Modern Fit Denim Jeans',
     description: 'Crafted for comfort and style, these modern-fit jeans offer a versatile look for everyday wear. Made with a hint of stretch for flexibility.',
-    price: 79.99,
+    price: 6699.00, // Approx 79.99 USD
     images: ['https://placehold.co/600x800.png', 'https://placehold.co/600x800.png'],
     category: 'Pants',
     sizes: COMMON_SIZES,
@@ -112,7 +114,7 @@ export const PRODUCTS: Product[] = [
     slug: 'merino-wool-sweater',
     name: 'Merino Wool Sweater',
     description: 'Luxuriously soft and warm, this merino wool sweater is perfect for cooler days. Features a classic crew neck and ribbed trim.',
-    price: 99.50,
+    price: 8299.00, // Approx 99.50 USD
     images: ['https://placehold.co/600x800.png', 'https://placehold.co/600x800.png'],
     category: 'Shirts', // or a new 'Knitwear' category
     sizes: COMMON_SIZES,
@@ -129,7 +131,7 @@ export const PRODUCTS: Product[] = [
     slug: 'linen-blend-shorts',
     name: 'Linen Blend Shorts',
     description: 'Stay cool and comfortable in these breathable linen-blend shorts. Perfect for warm weather, featuring a relaxed fit and drawstring waist.',
-    price: 49.99,
+    price: 4199.00, // Approx 49.99 USD
     images: ['https://placehold.co/600x800.png'],
     category: 'Pants', // or 'Shorts'
     sizes: ['S', 'M', 'L', 'XL'],

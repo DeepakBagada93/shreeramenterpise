@@ -1,3 +1,4 @@
+
 'use client';
 
 import { Button } from "@/components/ui/button";
@@ -18,12 +19,12 @@ import Link from "next/link";
 // Mock order summary (in a real app, this would come from cart context/state)
 const mockOrderSummary = {
   items: [
-    { id: '1', name: 'Classic Crew Neck Tee', price: 29.99, quantity: 1, image: 'https://placehold.co/100x100.png' },
-    { id: '2', name: 'Slim Fit Chino Pants', price: 69.99, quantity: 1, image: 'https://placehold.co/100x100.png' },
+    { id: '1', name: 'Classic Crew Neck Tee', price: 2999.00, quantity: 1, image: 'https://placehold.co/100x100.png' },
+    { id: '2', name: 'Slim Fit Chino Pants', price: 6999.00, quantity: 1, image: 'https://placehold.co/100x100.png' },
   ],
-  subtotal: 99.98,
-  shipping: 5.99,
-  total: 105.97,
+  subtotal: 9998.00,
+  shipping: 150.00,
+  total: 10148.00,
 };
 
 export default function CheckoutPage() {
@@ -130,22 +131,22 @@ export default function CheckoutPage() {
                     <img src={item.image} alt={item.name} className="w-10 h-10 rounded object-cover" data-ai-hint="checkout item" />
                     <span>{item.name} (x{item.quantity})</span>
                   </div>
-                  <span>${(item.price * item.quantity).toFixed(2)}</span>
+                  <span>₹{(item.price * item.quantity).toFixed(2)}</span>
                 </div>
               ))}
               <Separator />
               <div className="flex justify-between">
                 <span className="text-muted-foreground">Subtotal</span>
-                <span>${mockOrderSummary.subtotal.toFixed(2)}</span>
+                <span>₹{mockOrderSummary.subtotal.toFixed(2)}</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-muted-foreground">Shipping</span>
-                <span>${mockOrderSummary.shipping.toFixed(2)}</span>
+                <span>₹{mockOrderSummary.shipping.toFixed(2)}</span>
               </div>
               <Separator />
               <div className="flex justify-between text-lg font-semibold">
                 <span>Total</span>
-                <span>${mockOrderSummary.total.toFixed(2)}</span>
+                <span>₹{mockOrderSummary.total.toFixed(2)}</span>
               </div>
             </CardContent>
             <CardFooter className="flex-col gap-3">

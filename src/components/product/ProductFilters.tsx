@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useEffect } from 'react';
@@ -15,6 +16,11 @@ interface ProductFiltersProps {
   colors: string[];
 }
 
+// Define a higher max price for INR
+const MAX_PRICE_INR = 50000;
+const PRICE_STEP_INR = 1000;
+
+
 const ProductFilters: React.FC<ProductFiltersProps> = ({ categories, sizes, colors }) => {
   const router = useRouter();
   const pathname = usePathname();
@@ -25,7 +31,7 @@ const ProductFilters: React.FC<ProductFiltersProps> = ({ categories, sizes, colo
   const [selectedColors, setSelectedColors] = useState<string[]>(searchParams.getAll('color') || []);
   const [priceRange, setPriceRange] = useState<[number, number]>([
     Number(searchParams.get('minPrice') || 0),
-    Number(searchParams.get('maxPrice') || 500)
+    Number(searchParams.get('maxPrice') || MAX_PRICE_INR)
   ]);
 
   useEffect(() => {
@@ -34,7 +40,7 @@ const ProductFilters: React.FC<ProductFiltersProps> = ({ categories, sizes, colo
     setSelectedColors(searchParams.getAll('color') || []);
     setPriceRange([
         Number(searchParams.get('minPrice') || 0),
-        Number(searchParams.get('maxPrice') || 500)
+        Number(searchParams.get('maxPrice') || MAX_PRICE_INR)
     ]);
   }, [searchParams]);
 
@@ -70,7 +76,7 @@ const ProductFilters: React.FC<ProductFiltersProps> = ({ categories, sizes, colo
     setSelectedCategories([]);
     setSelectedSizes([]);
     setSelectedColors([]);
-    setPriceRange([0, 500]);
+    setPriceRange([0, MAX_PRICE_INR]);
     router.push(pathname, { scroll: false });
   };
 
@@ -136,14 +142,14 @@ const ProductFilters: React.FC<ProductFiltersProps> = ({ categories, sizes, colo
             <Slider
               defaultValue={[priceRange[0], priceRange[1]]}
               min={0}
-              max={500}
-              step={10}
+              max={MAX_PRICE_INR}
+              step={PRICE_STEP_INR}
               onValueChange={(value) => setPriceRange(value as [number, number])}
               className="mb-2"
             />
             <div className="flex justify-between text-sm text-muted-foreground">
-              <span>${priceRange[0]}</span>
-              <span>${priceRange[1]}</span>
+              <span>₹{priceRange[0]}</span>
+              <span>₹{priceRange[1]}</span>
             </div>
           </AccordionContent>
         </AccordionItem>

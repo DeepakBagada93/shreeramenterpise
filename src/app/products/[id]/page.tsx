@@ -1,3 +1,4 @@
+
 // This should be [slug]/page.tsx to match mock data structure
 // For now, using [id] as a placeholder. Will adjust if slug routing is implemented.
 // For this example, assuming `id` is the `slug`.
@@ -70,7 +71,7 @@ export default async function ProductDetailPage({ params }: { params: { id: stri
                 )}
               </div>
               <CardTitle className="text-3xl lg:text-4xl font-bold font-headline mt-2">{product.name}</CardTitle>
-              <p className="text-3xl font-semibold text-primary mt-1">${product.price.toFixed(2)}</p>
+              <p className="text-3xl font-semibold text-primary mt-1">₹{product.price.toFixed(2)}</p>
             </CardHeader>
             <CardContent>
               <CardDescription className="text-base leading-relaxed">{product.description}</CardDescription>
