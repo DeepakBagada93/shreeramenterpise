@@ -59,8 +59,8 @@ const secondaryNavLinks: NavItem[] = [
     ],
   },
   { label: 'New Arrivals', href: '/products?category=new-arrivals' },
-  { label: 'Sale', href: '/products?category=sale' },
-  { label: 'Accessories', href: '/products?category=accessories' },
+  // { label: 'Sale', href: '/products?category=sale' }, // Removed
+  // { label: 'Accessories', href: '/products?category=accessories' }, // Removed
 ];
 
 
