@@ -11,7 +11,7 @@ export default function HomePage() {
   return (
     <div className="space-y-16">
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-r from-primary/10 via-background to-accent/10 p-8 md:p-16 rounded-lg shadow-lg overflow-hidden">
+      <section className="relative bg-gradient-to-br from-primary/40 via-accent/20 to-background p-8 md:p-16 rounded-lg shadow-lg overflow-hidden">
         <div className="container mx-auto text-center z-10 relative">
           <h1 className="text-4xl md:text-6xl font-bold font-headline mb-6 text-primary">
             Elevate Your Style
