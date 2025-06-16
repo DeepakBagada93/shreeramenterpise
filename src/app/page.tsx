@@ -3,8 +3,9 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import ProductCard from '@/components/product/ProductCard';
 import { getFeaturedProducts } from '@/lib/mock-data';
-import { Award, ShoppingBag, Shirt, Sparkles } from 'lucide-react'; // Added Shirt and Sparkles
+import { Award, ShoppingBag, Shirt, Sparkles } from 'lucide-react';
 import Image from 'next/image';
+import { cn } from '@/lib/utils'; // Added import for cn
 
 export default function HomePage() {
   const featuredProducts = getFeaturedProducts();
@@ -27,6 +28,14 @@ export default function HomePage() {
     ),
     'Accessories': <Sparkles className="w-12 h-12 text-white" />,
   };
+
+  const categoryBackgrounds: { [key: string]: string } = {
+    'T-Shirts': 'bg-primary/20', // Light primary
+    'Pants': 'bg-muted',        // Muted theme color
+    'Jackets': 'bg-secondary',    // Secondary theme color
+    'Accessories': 'bg-accent/30', // Light accent
+  };
+
 
   return (
     <div className="space-y-16">
@@ -54,9 +63,9 @@ export default function HomePage() {
             </Button>
           </div>
         </div>
-         <Image 
-            src="https://placehold.co/1200x400.png" 
-            alt="Stylish men's fashion banner" 
+         <Image
+            src="https://placehold.co/1200x400.png"
+            alt="Stylish men's fashion banner"
             layout="fill"
             objectFit="cover"
             className="opacity-5 absolute inset-0 z-0"
@@ -89,23 +98,18 @@ export default function HomePage() {
         </Button>
       </section>
 
-      {/* Categories Section - Example */}
+      {/* Categories Section */}
       <section>
         <h2 className="text-3xl font-bold text-center mb-10 font-headline">Shop by Category</h2>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {Object.keys(categoryIcons).map(category => (
-            <Link key={category} href={`/products?category=${category.toLowerCase().replace(' ', '-')}`} className="group">
-              <div className="relative aspect-square rounded-lg overflow-hidden shadow-sm hover:shadow-lg transition-shadow">
-                <Image 
-                  src={`https://placehold.co/400x400.png`} 
-                  alt={category} 
-                  layout="fill" 
-                  objectFit="cover" 
-                  className="group-hover:scale-105 transition-transform duration-300"
-                  data-ai-hint={`${category.toLowerCase()} clothing`}
-                />
+            <Link key={category} href={`/products?category=${category.toLowerCase().replace(/\s+/g, '-')}`} className="group">
+              <div className={cn(
+                "relative aspect-square rounded-lg overflow-hidden shadow-sm hover:shadow-lg transition-shadow flex items-center justify-center",
+                categoryBackgrounds[category] || 'bg-gray-200' // Fallback background
+              )}>
                 <div className="absolute inset-0 bg-black/30 group-hover:bg-black/10 transition-colors flex items-center justify-center">
-                  {categoryIcons[category] || <h3 className="text-xl font-semibold text-white">{category}</h3>}
+                  {categoryIcons[category]}
                 </div>
               </div>
             </Link>
