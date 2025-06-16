@@ -1,7 +1,9 @@
+
 import type { Metadata } from 'next';
 import './globals.css';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
+import SecondaryNav from '@/components/layout/SecondaryNav'; // Added import
 import { Toaster } from '@/components/ui/toaster';
 import { APP_NAME } from '@/lib/constants';
 
@@ -24,6 +26,7 @@ export default function RootLayout({
       </head>
       <body className="font-body antialiased flex flex-col min-h-screen">
         <Header />
+        <SecondaryNav /> {/* Added SecondaryNav component */}
         <main className="flex-grow container mx-auto px-4 py-8">
           {children}
         </main>
