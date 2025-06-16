@@ -3,9 +3,10 @@ import type { Metadata } from 'next';
 import './globals.css';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
-import SecondaryNav from '@/components/layout/SecondaryNav'; // Added import
+import SecondaryNav from '@/components/layout/SecondaryNav';
 import { Toaster } from '@/components/ui/toaster';
 import { APP_NAME } from '@/lib/constants';
+import { Suspense } from 'react';
 
 export const metadata: Metadata = {
   title: APP_NAME,
@@ -26,7 +27,9 @@ export default function RootLayout({
       </head>
       <body className="font-body antialiased flex flex-col min-h-screen">
         <Header />
-        <SecondaryNav /> {/* Added SecondaryNav component */}
+        <Suspense fallback={<div className="h-12 border-b"></div>}>
+          <SecondaryNav />
+        </Suspense>
         <main className="flex-grow container mx-auto px-4 py-8">
           {children}
         </main>
