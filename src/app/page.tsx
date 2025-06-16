@@ -142,10 +142,6 @@ export default function HomePage() {
                 <div className="absolute inset-0 bg-black/30 group-hover:bg-black/10 transition-colors flex items-center justify-center">
                   {categoryIcons[category]}
                 </div>
-                 {/* Adding category name below icon for clarity, visible on hover too */}
-                <span className="mt-2 text-center text-sm font-medium text-white z-10 group-hover:text-white transition-colors">
-                  {category}
-                </span>
               </div>
             </Link>
           ))}
