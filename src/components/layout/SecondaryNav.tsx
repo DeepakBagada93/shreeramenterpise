@@ -12,6 +12,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { ChevronDown } from 'lucide-react';
+import { useState, useEffect } from 'react'; // Import useState and useEffect
 
 interface NavSubItem {
   href: string;
@@ -59,14 +60,29 @@ const secondaryNavLinks: NavItem[] = [
     ],
   },
   { label: 'New Arrivals', href: '/products?category=new-arrivals' },
-  // { label: 'Sale', href: '/products?category=sale' }, // Removed
-  // { label: 'Accessories', href: '/products?category=accessories' }, // Removed
 ];
 
 
 const SecondaryNav = () => {
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
   const pathname = usePathname();
   const searchParams = useSearchParams();
+
+  // Hooks can only be called at the top level, so we call them unconditionally.
+  // The conditional rendering based on isClient happens after hooks are called.
+
+  if (!isClient) {
+    // Return null (or a static placeholder if preferred) during SSR and initial client render.
+    // The Suspense boundary in RootLayout will show its fallback.
+    return null;
+  }
+
+  // Now that we are on the client, we can safely use the values from the hooks.
   const currentQuery = searchParams.toString();
   const currentPath = pathname + (currentQuery ? `?${currentQuery}` : '');
 
