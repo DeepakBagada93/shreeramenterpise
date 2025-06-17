@@ -1,3 +1,4 @@
+
 'use client';
 
 import Link from 'next/link';
@@ -8,6 +9,8 @@ import { Sheet, SheetContent, SheetTrigger, SheetClose } from '@/components/ui/s
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
 import { Input } from '@/components/ui/input';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { getAllCategories } from '@/lib/mock-data';
 
 const navLinks = [
   { href: '/', label: 'Home', icon: Home },
@@ -47,16 +50,42 @@ const NavLinkItem = ({ href, label, icon: Icon, isMobile = false }: { href: stri
 
 
 const Header = () => {
+  const searchCategories = getAllCategories();
+
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container mx-auto flex h-16 items-center justify-between px-4">
         <Logo />
         
-        <div className="hidden md:flex items-center gap-2 flex-grow max-w-xs ml-8">
-          <Input type="search" placeholder="Search products..." className="h-9" />
-          <Button variant="outline" size="icon" className="h-9 w-9">
-            <Search className="h-4 w-4" />
-          </Button>
+        <div className="hidden md:flex items-center flex-grow max-w-lg lg:max-w-xl ml-6 mr-4">
+          <div className="flex w-full items-stretch rounded-md border border-input bg-background focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-background">
+            <Select defaultValue="all">
+              <SelectTrigger
+                aria-label="Select search category"
+                className="h-9 rounded-r-none border-0 border-r bg-muted/50 hover:bg-muted focus:ring-0 focus:outline-none w-auto min-w-[70px] max-w-[140px] px-2.5 text-xs text-muted-foreground data-[state=open]:bg-muted"
+              >
+                <SelectValue placeholder="All" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All Categories</SelectItem>
+                {searchCategories.map((category) => (
+                  <SelectItem key={category} value={category.toLowerCase().replace(/\s+/g, '-')}>
+                    {category}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+            <div className="relative flex-grow">
+              <Input
+                type="search"
+                placeholder="Search products, brands and more"
+                className="h-9 w-full rounded-none border-0 bg-transparent focus:ring-0 focus:outline-none px-3 placeholder:text-muted-foreground/80"
+              />
+            </div>
+            <Button variant="default" size="icon" className="h-9 w-10 rounded-l-none bg-primary hover:bg-primary/90">
+              <Search className="h-4 w-4 text-primary-foreground" />
+            </Button>
+          </div>
         </div>
 
         <nav className="hidden md:flex items-center gap-1">
