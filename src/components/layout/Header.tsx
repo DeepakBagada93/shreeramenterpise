@@ -2,7 +2,7 @@
 'use client';
 
 import Link from 'next/link';
-import { ShoppingBag, User, Menu, Home, Shirt, Award, Search } from 'lucide-react';
+import { ShoppingBag, User, Menu, Home, Shirt, Award, Search, Shield } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Logo from '@/components/common/Logo';
 import { Sheet, SheetContent, SheetTrigger, SheetClose } from '@/components/ui/sheet';
@@ -16,13 +16,14 @@ const navLinks = [
   { href: '/', label: 'Home', icon: Home },
   { href: '/products', label: 'Products', icon: Shirt },
   { href: '/recommendations', label: 'Style Hub', icon: Award },
+  { href: '/admin', label: 'Admin', icon: Shield },
   { href: '/account', label: 'Account', icon: User },
   { href: '/cart', label: 'Cart', icon: ShoppingBag },
 ];
 
 const NavLinkItem = ({ href, label, icon: Icon, isMobile = false }: { href: string; label: string; icon: React.ElementType; isMobile?: boolean }) => {
   const pathname = usePathname();
-  const isActive = pathname === href;
+  const isActive = pathname.startsWith(href) && (href !== '/' || pathname === '/');
 
   const linkContent = (
     <>
