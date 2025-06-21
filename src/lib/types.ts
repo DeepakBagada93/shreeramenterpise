@@ -46,6 +46,11 @@ export interface Vendor {
   id: string;
   name: string;
   email: string;
+  contactPerson: string;
+  phone: string;
+  address: string;
+  website?: string;
+  commissionRate: number; // as a percentage
   joinedDate: string; // ISO date string
   status: 'Approved' | 'Pending' | 'Rejected';
   productsCount: number;

@@ -3,6 +3,7 @@
 
 import * as React from 'react';
 import { format } from 'date-fns';
+import Link from 'next/link';
 import {
   Table,
   TableBody,
@@ -13,9 +14,17 @@ import {
 } from '@/components/ui/table';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 import type { Vendor } from '@/lib/types';
 import { useToast } from '@/hooks/use-toast';
-import { CheckCircle } from 'lucide-react';
+import { CheckCircle, MoreHorizontal, Pen } from 'lucide-react';
 
 const getStatusVariant = (status: Vendor['status']): 'default' | 'destructive' | 'outline' | 'secondary' => {
   switch (status) {
@@ -34,8 +43,6 @@ export default function VendorsTable({ initialVendors }: { initialVendors: Vendo
   const { toast } = useToast();
 
   const handleApproveVendor = (vendorId: string) => {
-    // In a real app, this would be an API call.
-    // Here, we just update the local state.
     setVendors(currentVendors =>
       currentVendors.map(vendor =>
         vendor.id === vendorId ? { ...vendor, status: 'Approved' } : vendor
@@ -54,8 +61,8 @@ export default function VendorsTable({ initialVendors }: { initialVendors: Vendo
         <TableHeader>
           <TableRow>
             <TableHead>Vendor Name</TableHead>
+            <TableHead>Contact Person</TableHead>
             <TableHead>Joined Date</TableHead>
-            <TableHead>Products</TableHead>
             <TableHead>Status</TableHead>
             <TableHead className="text-right">Actions</TableHead>
           </TableRow>
@@ -64,20 +71,37 @@ export default function VendorsTable({ initialVendors }: { initialVendors: Vendo
           {vendors.map((vendor) => (
             <TableRow key={vendor.id}>
               <TableCell className="font-medium">{vendor.name}</TableCell>
+              <TableCell>{vendor.contactPerson}</TableCell>
               <TableCell>{format(new Date(vendor.joinedDate), 'PP')}</TableCell>
-              <TableCell>{vendor.productsCount}</TableCell>
               <TableCell>
                  <Badge variant={getStatusVariant(vendor.status)} className="capitalize">
                     {vendor.status.toLowerCase()}
                  </Badge>
               </TableCell>
               <TableCell className="text-right">
-                {vendor.status === 'Pending' && (
-                  <Button variant="outline" size="sm" onClick={() => handleApproveVendor(vendor.id)}>
-                    <CheckCircle className="mr-2 h-4 w-4" />
-                    Approve
-                  </Button>
-                )}
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button variant="ghost" size="icon">
+                      <MoreHorizontal className="h-4 w-4" />
+                      <span className="sr-only">Actions</span>
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end">
+                    <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem asChild>
+                      <Link href={`/admin/vendors/${vendor.id}/edit`}>
+                        <Pen className="mr-2 h-4 w-4" /> Edit
+                      </Link>
+                    </DropdownMenuItem>
+                    {vendor.status === 'Pending' && (
+                      <DropdownMenuItem onClick={() => handleApproveVendor(vendor.id)}>
+                        <CheckCircle className="mr-2 h-4 w-4" />
+                        Approve
+                      </DropdownMenuItem>
+                    )}
+                  </DropdownMenuContent>
+                </DropdownMenu>
               </TableCell>
             </TableRow>
           ))}

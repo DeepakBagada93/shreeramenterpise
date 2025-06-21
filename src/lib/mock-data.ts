@@ -162,11 +162,69 @@ export const USER_PROFILES: UserProfile[] = [
 ];
 
 export const VENDORS: Vendor[] = [
-  { id: 'vendor_01', name: 'Prime Textiles Co.', email: 'contact@primetextiles.com', joinedDate: '2023-01-20T00:00:00Z', status: 'Approved', productsCount: 120 },
-  { id: 'vendor_02', name: 'Modern Apparel Inc.', email: 'sales@modernapparel.com', joinedDate: '2023-03-15T00:00:00Z', status: 'Approved', productsCount: 85 },
-  { id: 'vendor_03', name: 'New Weave Creations', email: 'support@newweave.com', joinedDate: '2023-05-10T00:00:00Z', status: 'Pending', productsCount: 15 },
-  { id: 'vendor_04', name: 'Urban Threads', email: 'info@urbanthreads.co', joinedDate: '2023-06-01T00:00:00Z', status: 'Pending', productsCount: 5 },
-  { id: 'vendor_05', name: 'Classic Cuts', email: 'classic@cuts.com', joinedDate: '2022-11-05T00:00:00Z', status: 'Rejected', productsCount: 32 },
+    { 
+        id: 'vendor_01', 
+        name: 'Prime Textiles Co.', 
+        email: 'contact@primetextiles.com', 
+        contactPerson: 'Ravi Mehra',
+        phone: '9876543210',
+        address: '123 Textile Lane, Surat, Gujarat 395006',
+        website: 'https://primetextiles.com',
+        commissionRate: 15,
+        joinedDate: '2023-01-20T00:00:00Z', 
+        status: 'Approved', 
+        productsCount: 120 
+    },
+    { 
+        id: 'vendor_02', 
+        name: 'Modern Apparel Inc.', 
+        email: 'sales@modernapparel.com', 
+        contactPerson: 'Priya Singh',
+        phone: '9876543211',
+        address: '456 Fashion Ave, Mumbai, Maharashtra 400001',
+        website: 'https://modernapparel.com',
+        commissionRate: 12.5,
+        joinedDate: '2023-03-15T00:00:00Z', 
+        status: 'Approved', 
+        productsCount: 85 
+    },
+    { 
+        id: 'vendor_03', 
+        name: 'New Weave Creations', 
+        email: 'support@newweave.com', 
+        contactPerson: 'Anil Kumar',
+        phone: '9876543212',
+        address: '789 Weavers St, Jaipur, Rajasthan 302001',
+        commissionRate: 20,
+        joinedDate: '2023-05-10T00:00:00Z', 
+        status: 'Pending', 
+        productsCount: 15 
+    },
+    { 
+        id: 'vendor_04', 
+        name: 'Urban Threads', 
+        email: 'info@urbanthreads.co', 
+        contactPerson: 'Sunita Rao',
+        phone: '9876543213',
+        address: '101 Urban Block, Bangalore, Karnataka 560001',
+        website: 'https://urbanthreads.co',
+        commissionRate: 18,
+        joinedDate: '2023-06-01T00:00:00Z', 
+        status: 'Pending', 
+        productsCount: 5 
+    },
+    { 
+        id: 'vendor_05', 
+        name: 'Classic Cuts', 
+        email: 'classic@cuts.com', 
+        contactPerson: 'Vikram Reddy',
+        phone: '9876543214',
+        address: '212 Heritage Rd, Chennai, Tamil Nadu 600002',
+        commissionRate: 16,
+        joinedDate: '2022-11-05T00:00:00Z', 
+        status: 'Rejected', 
+        productsCount: 32 
+    },
 ];
 
 export const ORDERS: Order[] = [
@@ -253,6 +311,10 @@ export const getAllColors = (): string[] => {
 export const getVendors = (): Vendor[] => {
     return VENDORS;
 }
+
+export const getVendorById = (id: string): Vendor | undefined => {
+  return VENDORS.find(v => v.id === id);
+};
 
 export const getOrders = (): Order[] => {
     return ORDERS;
