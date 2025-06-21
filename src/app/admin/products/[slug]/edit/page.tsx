@@ -11,15 +11,16 @@ import { useToast } from "@/hooks/use-toast";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { getAllCategories, getProductBySlug } from "@/lib/mock-data";
+import { getAllCategories, getProductBySlug, getVendors } from "@/lib/mock-data";
 import { useEffect, useState } from "react";
-import type { Product } from "@/lib/types";
+import type { Product, Vendor } from "@/lib/types";
 
 
 export default function EditProductPage({ params }: { params: { slug: string } }) {
   const { toast } = useToast();
   const router = useRouter();
   const categories = getAllCategories();
+  const vendors = getVendors().filter(v => v.status === 'Approved');
   const [product, setProduct] = useState<Product | undefined>(undefined);
 
   useEffect(() => {
@@ -36,6 +37,7 @@ export default function EditProductPage({ params }: { params: { slug: string } }
     console.log("Updated Product Data:", {
         id: product?.id,
         name: productName,
+        vendorId: formData.get('vendorId'),
     });
 
     toast({
@@ -90,10 +92,6 @@ export default function EditProductPage({ params }: { params: { slug: string } }
                 </SelectContent>
               </Select>
             </div>
-            <div className="md:col-span-2 space-y-2">
-              <Label htmlFor="description">Description</Label>
-              <Textarea id="description" name="description" defaultValue={product.description} required />
-            </div>
             <div className="space-y-2">
               <Label htmlFor="price">Price (INR)</Label>
               <Input id="price" name="price" type="number" defaultValue={product.price} required min="0" step="0.01" />
@@ -101,6 +99,23 @@ export default function EditProductPage({ params }: { params: { slug: string } }
              <div className="space-y-2">
               <Label htmlFor="stock">Stock Quantity</Label>
               <Input id="stock" name="stock" type="number" defaultValue={product.stock} required min="0" />
+            </div>
+            <div className="md:col-span-2 space-y-2">
+              <Label htmlFor="vendor">Vendor</Label>
+              <Select name="vendorId" defaultValue={product.vendorId} required>
+                <SelectTrigger id="vendor">
+                  <SelectValue placeholder="Select a vendor" />
+                </SelectTrigger>
+                <SelectContent>
+                  {vendors.map((vendor: Vendor) => (
+                    <SelectItem key={vendor.id} value={vendor.id}>{vendor.name}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="md:col-span-2 space-y-2">
+              <Label htmlFor="description">Description</Label>
+              <Textarea id="description" name="description" defaultValue={product.description} required />
             </div>
              <div className="md:col-span-2 space-y-2">
               <Label htmlFor="images">Image URL</Label>

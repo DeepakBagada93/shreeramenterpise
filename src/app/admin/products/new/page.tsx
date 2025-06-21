@@ -11,12 +11,14 @@ import { useToast } from "@/hooks/use-toast";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { getAllCategories } from "@/lib/mock-data";
+import { getAllCategories, getVendors } from "@/lib/mock-data";
+import type { Vendor } from "@/lib/types";
 
 export default function NewProductPage() {
   const { toast } = useToast();
   const router = useRouter();
   const categories = getAllCategories();
+  const vendors = getVendors().filter(v => v.status === 'Approved');
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -30,6 +32,7 @@ export default function NewProductPage() {
         price: formData.get('price'),
         category: formData.get('category'),
         stock: formData.get('stock'),
+        vendorId: formData.get('vendorId'),
     });
 
     toast({
@@ -80,10 +83,6 @@ export default function NewProductPage() {
                 </SelectContent>
               </Select>
             </div>
-            <div className="md:col-span-2 space-y-2">
-              <Label htmlFor="description">Description</Label>
-              <Textarea id="description" name="description" placeholder="Enter product description..." required />
-            </div>
             <div className="space-y-2">
               <Label htmlFor="price">Price (INR)</Label>
               <Input id="price" name="price" type="number" placeholder="e.g., 2499.00" required min="0" step="0.01" />
@@ -91,6 +90,23 @@ export default function NewProductPage() {
              <div className="space-y-2">
               <Label htmlFor="stock">Stock Quantity</Label>
               <Input id="stock" name="stock" type="number" placeholder="e.g., 150" required min="0" />
+            </div>
+            <div className="md:col-span-2 space-y-2">
+              <Label htmlFor="vendor">Vendor</Label>
+              <Select name="vendorId" required>
+                <SelectTrigger id="vendor">
+                  <SelectValue placeholder="Select a vendor" />
+                </SelectTrigger>
+                <SelectContent>
+                  {vendors.map((vendor: Vendor) => (
+                    <SelectItem key={vendor.id} value={vendor.id}>{vendor.name}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="md:col-span-2 space-y-2">
+              <Label htmlFor="description">Description</Label>
+              <Textarea id="description" name="description" placeholder="Enter product description..." required />
             </div>
              <div className="md:col-span-2 space-y-2">
               <Label htmlFor="images">Image URL</Label>
