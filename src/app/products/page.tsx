@@ -18,7 +18,7 @@ export default function ProductsPage({ searchParams }: { searchParams?: { [key: 
   let filteredProducts = PRODUCTS;
 
   if (category) {
-    filteredProducts = filteredProducts.filter(p => p.category.toLowerCase() === category.toLowerCase());
+    filteredProducts = filteredProducts.filter(p => p.category.toLowerCase().replace(/\s+/g, '-') === category.toLowerCase());
   }
   if (size) {
     filteredProducts = filteredProducts.filter(p => p.sizes.map(s => s.toLowerCase()).includes(size.toLowerCase()));
@@ -30,56 +30,61 @@ export default function ProductsPage({ searchParams }: { searchParams?: { [key: 
   const availableCategories = getAllCategories();
   const availableSizes = getAllSizes();
   const availableColors = getAllColors();
+  
+  const currentCategoryName = availableCategories.find(c => c.toLowerCase().replace(/\s+/g, '-') === category) || (category ? category : 'All Products');
+
 
   return (
-    <div className="flex flex-col md:flex-row gap-8">
-      <aside className="w-full md:w-1/4 lg:w-1/5">
-        <ProductFilters 
-          categories={availableCategories}
-          sizes={availableSizes}
-          colors={availableColors}
-        />
-      </aside>
-      <main className="w-full md:w-3/4 lg:w-4/5">
-        <h1 className="text-3xl font-bold mb-8 font-headline">
-          {category ? `${category.charAt(0).toUpperCase() + category.slice(1)} Collection` : 'All Products'}
-        </h1>
-        {filteredProducts.length > 0 ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6 md:gap-8">
-            {filteredProducts.map((product) => (
-              <ProductCard key={product.id} product={product} />
-            ))}
-          </div>
-        ) : (
-          <div className="text-center py-12">
-            <p className="text-xl text-muted-foreground">No products found matching your criteria.</p>
-            <p className="mt-2 text-sm text-muted-foreground">Try adjusting your filters or view all products.</p>
-          </div>
-        )}
-        {/* Basic Pagination Example - to be made functional */}
-        <Pagination className="mt-12">
-          <PaginationContent>
-            <PaginationItem>
-              <PaginationPrevious href="#" />
-            </PaginationItem>
-            <PaginationItem>
-              <PaginationLink href="#">1</PaginationLink>
-            </PaginationItem>
-            <PaginationItem>
-              <PaginationLink href="#" isActive>2</PaginationLink>
-            </PaginationItem>
-            <PaginationItem>
-              <PaginationLink href="#">3</PaginationLink>
-            </PaginationItem>
-            <PaginationItem>
-              <PaginationEllipsis />
-            </PaginationItem>
-            <PaginationItem>
-              <PaginationNext href="#" />
-            </PaginationItem>
-          </PaginationContent>
-        </Pagination>
-      </main>
+    <div className="container mx-auto px-4">
+      <div className="flex flex-col md:flex-row gap-8">
+        <aside className="w-full md:w-1/4 lg:w-1/5">
+          <ProductFilters 
+            categories={availableCategories}
+            sizes={availableSizes}
+            colors={availableColors}
+          />
+        </aside>
+        <main className="w-full md:w-3/4 lg:w-4/5">
+          <h1 className="text-3xl font-bold mb-8 font-headline">
+            {currentCategoryName === 'All Products' ? 'All Products' : `${currentCategoryName} Collection`}
+          </h1>
+          {filteredProducts.length > 0 ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6 md:gap-8">
+              {filteredProducts.map((product) => (
+                <ProductCard key={product.id} product={product} />
+              ))}
+            </div>
+          ) : (
+            <div className="text-center py-12">
+              <p className="text-xl text-muted-foreground">No products found matching your criteria.</p>
+              <p className="mt-2 text-sm text-muted-foreground">Try adjusting your filters or view all products.</p>
+            </div>
+          )}
+          {/* Basic Pagination Example - to be made functional */}
+          <Pagination className="mt-12">
+            <PaginationContent>
+              <PaginationItem>
+                <PaginationPrevious href="#" />
+              </PaginationItem>
+              <PaginationItem>
+                <PaginationLink href="#">1</PaginationLink>
+              </PaginationItem>
+              <PaginationItem>
+                <PaginationLink href="#" isActive>2</PaginationLink>
+              </PaginationItem>
+              <PaginationItem>
+                <PaginationLink href="#">3</PaginationLink>
+              </PaginationItem>
+              <PaginationItem>
+                <PaginationEllipsis />
+              </PaginationItem>
+              <PaginationItem>
+                <PaginationNext href="#" />
+              </PaginationItem>
+            </PaginationContent>
+          </Pagination>
+        </main>
+      </div>
     </div>
   );
 }

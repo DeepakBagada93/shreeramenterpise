@@ -84,94 +84,96 @@ export default function RecommendationsPage() {
   const selectedUserProfile = USER_PROFILES.find(u => u.id === selectedUserId);
 
   return (
-    <div className="space-y-10">
-      <Card className="shadow-lg">
-        <CardHeader className="text-center">
-          <Award className="mx-auto h-12 w-12 text-primary mb-2" />
-          <CardTitle className="text-3xl font-bold font-headline">Personalized Style Hub</CardTitle>
-          <CardDescription className="text-lg text-muted-foreground max-w-xl mx-auto">
-            Select a user profile to discover AI-powered style recommendations based on their purchase history.
-          </CardDescription>
-        </CardHeader>
-        <CardContent className="flex flex-col items-center gap-6">
-          <div className="w-full max-w-sm">
-            <Select value={selectedUserId} onValueChange={setSelectedUserId}>
-              <SelectTrigger aria-label="Select User Profile">
-                <SelectValue placeholder="Select a user profile" />
-              </SelectTrigger>
-              <SelectContent>
-                {USER_PROFILES.map((user) => (
-                  <SelectItem key={user.id} value={user.id}>
-                    {user.name}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
-          <Button onClick={handleGetRecommendations} disabled={isLoading || !selectedUserId} size="lg">
-            {isLoading ? (
-              <>
-                <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-                Getting Recommendations...
-              </>
-            ) : (
-              <>
-                <Award className="mr-2 h-5 w-5" />
-                Get Style Recommendations
-              </>
-            )}
-          </Button>
-        </CardContent>
-      </Card>
-
-      {selectedUserProfile && !isLoading && (
-        <Card>
-          <CardHeader>
-            <CardTitle>Purchase History for {selectedUserProfile.name}</CardTitle>
+    <div className="container mx-auto px-4">
+      <div className="space-y-10">
+        <Card className="shadow-lg">
+          <CardHeader className="text-center">
+            <Award className="mx-auto h-12 w-12 text-primary mb-2" />
+            <CardTitle className="text-3xl font-bold font-headline">Personalized Style Hub</CardTitle>
+            <CardDescription className="text-lg text-muted-foreground max-w-xl mx-auto">
+              Select a user profile to discover AI-powered style recommendations based on their purchase history.
+            </CardDescription>
           </CardHeader>
-          <CardContent>
-            {selectedUserProfile.purchaseHistory.length > 0 ? (
-              <ul className="list-disc list-inside text-sm text-muted-foreground">
-                {selectedUserProfile.purchaseHistory.map(itemId => {
-                  const item = getProductById(itemId);
-                  return <li key={itemId}>{item ? item.name : `Unknown Item (ID: ${itemId})`}</li>;
-                })}
-              </ul>
-            ) : (
-              <p className="text-sm text-muted-foreground">No purchase history available for this user.</p>
-            )}
+          <CardContent className="flex flex-col items-center gap-6">
+            <div className="w-full max-w-sm">
+              <Select value={selectedUserId} onValueChange={setSelectedUserId}>
+                <SelectTrigger aria-label="Select User Profile">
+                  <SelectValue placeholder="Select a user profile" />
+                </SelectTrigger>
+                <SelectContent>
+                  {USER_PROFILES.map((user) => (
+                    <SelectItem key={user.id} value={user.id}>
+                      {user.name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+            <Button onClick={handleGetRecommendations} disabled={isLoading || !selectedUserId} size="lg">
+              {isLoading ? (
+                <>
+                  <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                  Getting Recommendations...
+                </>
+              ) : (
+                <>
+                  <Award className="mr-2 h-5 w-5" />
+                  Get Style Recommendations
+                </>
+              )}
+            </Button>
           </CardContent>
         </Card>
-      )}
+
+        {selectedUserProfile && !isLoading && (
+          <Card>
+            <CardHeader>
+              <CardTitle>Purchase History for {selectedUserProfile.name}</CardTitle>
+            </CardHeader>
+            <CardContent>
+              {selectedUserProfile.purchaseHistory.length > 0 ? (
+                <ul className="list-disc list-inside text-sm text-muted-foreground">
+                  {selectedUserProfile.purchaseHistory.map(itemId => {
+                    const item = getProductById(itemId);
+                    return <li key={itemId}>{item ? item.name : `Unknown Item (ID: ${itemId})`}</li>;
+                  })}
+                </ul>
+              ) : (
+                <p className="text-sm text-muted-foreground">No purchase history available for this user.</p>
+              )}
+            </CardContent>
+          </Card>
+        )}
 
 
-      {error && (
-        <div className="text-center p-6 bg-destructive/10 text-destructive border border-destructive rounded-md flex items-center justify-center gap-2">
-          <AlertTriangle className="h-5 w-5" />
-          <p>{error}</p>
-        </div>
-      )}
-
-      {recommendations.length > 0 && (
-        <section>
-          <h2 className="text-2xl font-bold text-center mb-8 font-headline">
-            Recommended For You
-            {selectedUserProfile ? `, ${selectedUserProfile.name}`: ''}
-          </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8">
-            {recommendations.map((product) => (
-              <ProductCard key={product.id} product={product} />
-            ))}
+        {error && (
+          <div className="text-center p-6 bg-destructive/10 text-destructive border border-destructive rounded-md flex items-center justify-center gap-2">
+            <AlertTriangle className="h-5 w-5" />
+            <p>{error}</p>
           </div>
-        </section>
-      )}
-      
-      {!isLoading && !error && recommendations.length === 0 && selectedUserId && (
-         <div className="text-center py-10">
-            <p className="text-xl text-muted-foreground">No recommendations to display at the moment.</p>
-            <p className="text-sm text-muted-foreground mt-1">Try selecting a different profile or check back later.</p>
-         </div>
-      )}
+        )}
+
+        {recommendations.length > 0 && (
+          <section>
+            <h2 className="text-2xl font-bold text-center mb-8 font-headline">
+              Recommended For You
+              {selectedUserProfile ? `, ${selectedUserProfile.name}`: ''}
+            </h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8">
+              {recommendations.map((product) => (
+                <ProductCard key={product.id} product={product} />
+              ))}
+            </div>
+          </section>
+        )}
+        
+        {!isLoading && !error && recommendations.length === 0 && selectedUserId && (
+           <div className="text-center py-10">
+              <p className="text-xl text-muted-foreground">No recommendations to display at the moment.</p>
+              <p className="text-sm text-muted-foreground mt-1">Try selecting a different profile or check back later.</p>
+           </div>
+        )}
+      </div>
     </div>
   );
 }
