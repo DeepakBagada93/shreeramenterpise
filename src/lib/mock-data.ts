@@ -1,5 +1,5 @@
 
-import type { Product, UserProfile, Review, ProductCategory, ProductSize } from './types';
+import type { Product, UserProfile, Review, ProductCategory, ProductSize, Vendor, Order } from './types';
 
 const COMMON_SIZES: ProductSize[] = ['S', 'M', 'L', 'XL'];
 const COMMON_COLORS = ['White', 'Muted Blue', 'Charcoal', 'Off-white'];
@@ -116,7 +116,7 @@ export const PRODUCTS: Product[] = [
     description: 'Luxuriously soft and warm, this merino wool sweater is perfect for cooler days. Features a classic crew neck and ribbed trim.',
     price: 8299.00, // Approx 99.50 USD
     images: ['https://placehold.co/600x800.png', 'https://placehold.co/600x800.png'],
-    category: 'Shirts', // or a new 'Knitwear' category
+    category: 'Knitwear',
     sizes: COMMON_SIZES,
     colors: ['Charcoal', 'Navy', 'Heather Grey'],
     stock: 75,
@@ -133,7 +133,7 @@ export const PRODUCTS: Product[] = [
     description: 'Stay cool and comfortable in these breathable linen-blend shorts. Perfect for warm weather, featuring a relaxed fit and drawstring waist.',
     price: 4199.00, // Approx 49.99 USD
     images: ['https://placehold.co/600x800.png'],
-    category: 'Pants', // or 'Shorts'
+    category: 'Shorts',
     sizes: ['S', 'M', 'L', 'XL'],
     colors: ['Off-white', 'Light Blue', 'Khaki Stripe'],
     stock: 110,
@@ -159,6 +159,63 @@ export const USER_PROFILES: UserProfile[] = [
     name: 'Mike Brown',
     purchaseHistory: ['prod_004', 'prod_006', 'prod_007'], // Bought a Bomber Jacket, Jeans, and Sweater
   },
+];
+
+export const VENDORS: Vendor[] = [
+  { id: 'vendor_01', name: 'Prime Textiles Co.', email: 'contact@primetextiles.com', joinedDate: '2023-01-20T00:00:00Z', status: 'Approved', productsCount: 120 },
+  { id: 'vendor_02', name: 'Modern Apparel Inc.', email: 'sales@modernapparel.com', joinedDate: '2023-03-15T00:00:00Z', status: 'Approved', productsCount: 85 },
+  { id: 'vendor_03', name: 'New Weave Creations', email: 'support@newweave.com', joinedDate: '2023-05-10T00:00:00Z', status: 'Pending', productsCount: 15 },
+  { id: 'vendor_04', name: 'Urban Threads', email: 'info@urbanthreads.co', joinedDate: '2023-06-01T00:00:00Z', status: 'Pending', productsCount: 5 },
+  { id: 'vendor_05', name: 'Classic Cuts', email: 'classic@cuts.com', joinedDate: '2022-11-05T00:00:00Z', status: 'Rejected', productsCount: 32 },
+];
+
+export const ORDERS: Order[] = [
+    {
+        id: 'ord_1001',
+        customerName: 'Aarav Sharma',
+        customerEmail: 'aarav.sharma@example.com',
+        date: '2023-10-28T10:00:00Z',
+        status: 'Delivered',
+        items: [
+            { productId: 'prod_001', productName: 'Classic Crew Neck Tee', quantity: 2, price: 2499.00 },
+            { productId: 'prod_002', productName: 'Slim Fit Chino Pants', quantity: 1, price: 5799.00 }
+        ],
+        total: 10797.00
+    },
+    {
+        id: 'ord_1002',
+        customerName: 'Priya Patel',
+        customerEmail: 'priya.patel@example.com',
+        date: '2023-10-29T14:30:00Z',
+        status: 'Shipped',
+        items: [
+            { productId: 'prod_004', productName: 'Lightweight Bomber Jacket', quantity: 1, price: 7499.00 }
+        ],
+        total: 7499.00
+    },
+    {
+        id: 'ord_1003',
+        customerName: 'Rohan Singh',
+        customerEmail: 'rohan.singh@example.com',
+        date: '2023-10-30T09:00:00Z',
+        status: 'Pending',
+        items: [
+            { productId: 'prod_007', productName: 'Merino Wool Sweater', quantity: 1, price: 8299.00 },
+            { productId: 'prod_005', productName: 'Premium Leather Belt', quantity: 1, price: 3750.00 }
+        ],
+        total: 12049.00
+    },
+    {
+        id: 'ord_1004',
+        customerName: 'Ananya Gupta',
+        customerEmail: 'ananya.gupta@example.com',
+        date: '2023-10-25T11:45:00Z',
+        status: 'Cancelled',
+        items: [
+            { productId: 'prod_006', productName: 'Modern Fit Denim Jeans', quantity: 1, price: 6699.00 }
+        ],
+        total: 6699.00
+    }
 ];
 
 export const getProductBySlug = (slug: string): Product | undefined => {
@@ -190,4 +247,13 @@ export const getAllSizes = (): ProductSize[] => {
 export const getAllColors = (): string[] => {
   const colors = new Set(PRODUCTS.flatMap(p => p.colors));
   return Array.from(colors);
+}
+
+// Admin data getters
+export const getVendors = (): Vendor[] => {
+    return VENDORS;
+}
+
+export const getOrders = (): Order[] => {
+    return ORDERS;
 }

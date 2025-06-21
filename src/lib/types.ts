@@ -1,3 +1,4 @@
+
 export interface Review {
   id: string;
   author: string;
@@ -6,7 +7,7 @@ export interface Review {
   date: string;
 }
 
-export type ProductCategory = 'T-Shirts' | 'Shirts' | 'Pants' | 'Jackets' | 'Accessories';
+export type ProductCategory = 'T-Shirts' | 'Shirts' | 'Pants' | 'Jackets' | 'Accessories' | 'Knitwear' | 'Shorts';
 export type ProductSize = 'S' | 'M' | 'L' | 'XL' | 'XXL';
 
 export interface Product {
@@ -38,4 +39,31 @@ export interface UserProfile {
   id: string;
   name: string;
   purchaseHistory: string[]; // Array of product IDs
+}
+
+// Admin Panel Types
+export interface Vendor {
+  id: string;
+  name: string;
+  email: string;
+  joinedDate: string; // ISO date string
+  status: 'Approved' | 'Pending' | 'Rejected';
+  productsCount: number;
+}
+
+export interface OrderItem {
+  productId: string;
+  productName: string;
+  quantity: number;
+  price: number; // Price at time of purchase
+}
+
+export interface Order {
+  id: string;
+  customerName: string;
+  customerEmail: string;
+  date: string; // ISO date string
+  status: 'Pending' | 'Shipped' | 'Delivered' | 'Cancelled';
+  items: OrderItem[];
+  total: number;
 }
