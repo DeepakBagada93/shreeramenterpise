@@ -6,24 +6,31 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
+import { getProductsByVendorId, getVendorById } from "@/lib/mock-data";
+import type { Product, Vendor } from "@/lib/types";
 import { ArrowLeft } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { getVendorById } from "@/lib/mock-data";
 import { useEffect, useState } from "react";
-import type { Vendor } from "@/lib/types";
 
 
 export default function EditVendorPage({ params }: { params: { id: string } }) {
   const { toast } = useToast();
   const router = useRouter();
   const [vendor, setVendor] = useState<Vendor | undefined>(undefined);
+  const [vendorProducts, setVendorProducts] = useState<Product[]>([]);
 
   useEffect(() => {
     const vendorData = getVendorById(params.id);
     setVendor(vendorData);
+    if (vendorData) {
+        const products = getProductsByVendorId(vendorData.id);
+        setVendorProducts(products);
+    }
   }, [params.id]);
 
 
@@ -47,7 +54,7 @@ export default function EditVendorPage({ params }: { params: { id: string } }) {
   }
 
   return (
-    <>
+    <div className="space-y-6">
       <div className="mb-6 flex items-center gap-4">
         <Button variant="outline" size="icon" asChild>
             <Link href="/admin/vendors">
@@ -116,6 +123,50 @@ export default function EditVendorPage({ params }: { params: { id: string } }) {
           </CardFooter>
         </form>
       </Card>
-    </>
+      
+      <Card>
+        <CardHeader>
+            <CardTitle>Products from this Vendor</CardTitle>
+            <CardDescription>A list of products supplied by {vendor.name}.</CardDescription>
+        </CardHeader>
+        <CardContent>
+            {vendorProducts.length > 0 ? (
+                <div className="rounded-lg border shadow-sm">
+                    <Table>
+                        <TableHeader>
+                            <TableRow>
+                                <TableHead className="w-[80px]">Image</TableHead>
+                                <TableHead>Name</TableHead>
+                                <TableHead>Price</TableHead>
+                                <TableHead>Stock</TableHead>
+                            </TableRow>
+                        </TableHeader>
+                        <TableBody>
+                            {vendorProducts.map(product => (
+                                <TableRow key={product.id}>
+                                    <TableCell>
+                                        <Image
+                                            src={product.images[0]}
+                                            alt={product.name}
+                                            width={40}
+                                            height={40}
+                                            className="rounded-md object-cover"
+                                            data-ai-hint="product thumbnail"
+                                        />
+                                    </TableCell>
+                                    <TableCell className="font-medium">{product.name}</TableCell>
+                                    <TableCell>₹{product.price.toFixed(2)}</TableCell>
+                                    <TableCell>{product.stock}</TableCell>
+                                </TableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
+                </div>
+            ) : (
+                <p className="text-sm text-muted-foreground">This vendor has not added any products yet.</p>
+            )}
+        </CardContent>
+      </Card>
+    </div>
   );
 }

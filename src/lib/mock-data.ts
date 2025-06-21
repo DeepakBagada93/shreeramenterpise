@@ -28,6 +28,7 @@ export const PRODUCTS: Product[] = [
     dateAdded: '2023-01-15T10:00:00Z',
     featured: true,
     rating: 4.5,
+    vendorId: 'vendor_01',
   },
   {
     id: 'prod_002',
@@ -45,6 +46,7 @@ export const PRODUCTS: Product[] = [
     dateAdded: '2023-02-20T11:00:00Z',
     featured: true,
     rating: 4.2,
+    vendorId: 'vendor_02',
   },
   {
     id: 'prod_003',
@@ -61,6 +63,7 @@ export const PRODUCTS: Product[] = [
     tags: ['oxford', 'button-down', 'formal'],
     dateAdded: '2023-03-10T09:30:00Z',
     rating: 4.8,
+    vendorId: 'vendor_01',
   },
   {
     id: 'prod_004',
@@ -77,6 +80,7 @@ export const PRODUCTS: Product[] = [
     dateAdded: '2023-04-05T14:15:00Z',
     featured: true,
     rating: 4.6,
+    vendorId: 'vendor_02',
   },
   {
     id: 'prod_005',
@@ -93,6 +97,7 @@ export const PRODUCTS: Product[] = [
     tags: ['leather', 'belt', 'accessory'],
     dateAdded: '2023-05-01T16:00:00Z',
     rating: 4.9,
+    vendorId: 'vendor_01',
   },
   {
     id: 'prod_006',
@@ -108,6 +113,7 @@ export const PRODUCTS: Product[] = [
     tags: ['denim', 'jeans', 'modern-fit'],
     dateAdded: '2023-06-12T10:45:00Z',
     rating: 4.3,
+    vendorId: 'vendor_02',
   },
    {
     id: 'prod_007',
@@ -125,6 +131,7 @@ export const PRODUCTS: Product[] = [
     dateAdded: '2023-09-01T12:00:00Z',
     featured: false,
     rating: 4.7,
+    vendorId: 'vendor_01',
   },
   {
     id: 'prod_008',
@@ -140,6 +147,7 @@ export const PRODUCTS: Product[] = [
     tags: ['linen', 'shorts', 'summer'],
     dateAdded: '2023-07-15T15:30:00Z',
     rating: 4.1,
+    vendorId: 'vendor_02',
   },
 ];
 
@@ -173,7 +181,7 @@ export const VENDORS: Vendor[] = [
         commissionRate: 15,
         joinedDate: '2023-01-20T00:00:00Z', 
         status: 'Approved', 
-        productsCount: 120 
+        productsCount: 4
     },
     { 
         id: 'vendor_02', 
@@ -186,7 +194,7 @@ export const VENDORS: Vendor[] = [
         commissionRate: 12.5,
         joinedDate: '2023-03-15T00:00:00Z', 
         status: 'Approved', 
-        productsCount: 85 
+        productsCount: 4
     },
     { 
         id: 'vendor_03', 
@@ -198,7 +206,7 @@ export const VENDORS: Vendor[] = [
         commissionRate: 20,
         joinedDate: '2023-05-10T00:00:00Z', 
         status: 'Pending', 
-        productsCount: 15 
+        productsCount: 0
     },
     { 
         id: 'vendor_04', 
@@ -211,7 +219,7 @@ export const VENDORS: Vendor[] = [
         commissionRate: 18,
         joinedDate: '2023-06-01T00:00:00Z', 
         status: 'Pending', 
-        productsCount: 5 
+        productsCount: 0
     },
     { 
         id: 'vendor_05', 
@@ -223,7 +231,7 @@ export const VENDORS: Vendor[] = [
         commissionRate: 16,
         joinedDate: '2022-11-05T00:00:00Z', 
         status: 'Rejected', 
-        productsCount: 32 
+        productsCount: 0
     },
 ];
 
@@ -314,6 +322,10 @@ export const getVendors = (): Vendor[] => {
 
 export const getVendorById = (id: string): Vendor | undefined => {
   return VENDORS.find(v => v.id === id);
+};
+
+export const getProductsByVendorId = (vendorId: string): Product[] => {
+    return PRODUCTS.filter(p => p.vendorId === vendorId);
 };
 
 export const getOrders = (): Order[] => {

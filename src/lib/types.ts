@@ -26,6 +26,7 @@ export interface Product {
   dateAdded?: string; // ISO date string
   featured?: boolean;
   rating?: number; // Average rating
+  vendorId?: string;
 }
 
 export interface CartItem extends Product {

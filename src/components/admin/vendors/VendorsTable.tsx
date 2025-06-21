@@ -63,6 +63,7 @@ export default function VendorsTable({ initialVendors }: { initialVendors: Vendo
             <TableHead>Vendor Name</TableHead>
             <TableHead>Contact Person</TableHead>
             <TableHead>Joined Date</TableHead>
+            <TableHead>Products</TableHead>
             <TableHead>Status</TableHead>
             <TableHead className="text-right">Actions</TableHead>
           </TableRow>
@@ -73,6 +74,7 @@ export default function VendorsTable({ initialVendors }: { initialVendors: Vendo
               <TableCell className="font-medium">{vendor.name}</TableCell>
               <TableCell>{vendor.contactPerson}</TableCell>
               <TableCell>{format(new Date(vendor.joinedDate), 'PP')}</TableCell>
+              <TableCell>{vendor.productsCount}</TableCell>
               <TableCell>
                  <Badge variant={getStatusVariant(vendor.status)} className="capitalize">
                     {vendor.status.toLowerCase()}
